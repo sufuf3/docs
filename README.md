@@ -1,15 +1,10 @@
-# Installation Guide
+# 安裝指南
 
-This guide describes how to install CORD. It identifies a set of
-[prerequisites](prereqs/README.md), and then walks through
-the steps involved in bringing up one of two CORD profiles:
+這指南描述如何安裝 CORD。 它定義了一組 [prerequisites](prereqs/README.md)，以及帶了兩個 CORD profiles 相關的步驟：
 
 * [R-CORD](./profiles/rcord/install.md)
 * [M-CORD](./profiles/mcord/install.md)
 
-If you are anxious to jump straight to a [Quick Start](quickstart.md)
-procedure that brings up an emulated version of CORD running
-on your laptop (sorry, no subscriber data plane), then that's an option.
+如果你要快速啟動，可以參考 [Quick Start](quickstart.md)。他會運行模擬版本的 CORD 在你的 laptop 中(沒有 subscriber data plane)。
 
-Alternatively, if you want to get a broader lay-of-the-land, you
-might step back and start with an [Overview](overview.md).
+或者想要仔細看的話，就從 [Overview](overview.md) 開始吧！
