@@ -1,71 +1,33 @@
-# Navigating CORD
+# CORD 指引
 
-Understanding the relationship between installing, operating, and developing
-CORD—and the corresponding toolsets and specification files used by
-each stage—is helpful in navigating CORD.
 
-* **Installation (Helm):** Installing CORD means installing a collection
-  of Docker containers in a Kubernetes cluster. We use Helm to carry out
-  the installation, with the valid configurations defined by a set of
-  `helm-charts`. These charts specify the version of each container to be
-  deployed, and so they also play a role in upgrading a running system.
-  More information about `helm-charts` can be found [here](charts/helm.md).
+在 CORD 指引中，將幫助了解安裝、操作和開發 CORD 以及相應工具集雨每個階段的規範文件之間的關係。
 
-* **Operations (TOSCA):** A running CORD POD supports multiple Northbound
-  Interfaces (e.g., a GUI and REST API), but we typically use `TOSCA` to specify
-  a workflow for configuring and provisioning a running system. A freshly
-  installed CORD POD has a set of control plane and platform level containers
-  running (e.g., XOS, ONOS, OpenStack), but until provisioned using `TOSCA`,
-  there are no services and no service graph. More information about `TOSCA`
-  can be found [here](xos-tosca/README.md).
+* **Installation (Helm):**
+安裝 CORD 意味著在 Kubernetes 集群中安裝一組 Docker containers。 使用 Helm 來進行安裝(使用 `helm-charts` 定義有效的 configurateions)。
+這些 charts 指定每個要部署的 container 版本，在版本升級也會用到。更多關於 `helm-charts` 可以參考[這邊](charts/helm.md)。
 
-* **Development (XOS):** The services running in an operational system
-  are typically deployed as Docker containers, paired with a model that
-  specifies how the service is to be on-boarded into CORD. This model is
-  writen in the `xproto` modeling language, and processed by the XOS
-  tool-chain. Among other things, this tool-chain generates the
-  TOSCA-engine that is used to process the configuration and provisioning
-  workflows used to operate CORD. More information about `xproto` (and
-  other details about on-boarding a service) can be found
-  [here](xos/dev/xproto.md).
+* **Operations (TOSCA):** 
+運行中的 CORD POD 支援多個北向 Interfaces(包含 GUI 和 REST API)，不過為了 config 和 provision 運行中的系統，通常我們使用 `TOSCA` 來定義 workflow。新的 CORD POD 有一組 control plane 和 platform level containers running (e.g., XOS, ONOS, OpenStack)。
+不過在使用 `TOSCA` 前，並沒有 services 和 service graph。更多關於 `TOSCA` 可以參考[這邊](xos-tosca/README.md)。
 
-These tools and containers are inter-related as follows:
+* **Development (XOS):** 
+service 通常使用 Docker container 部署，並指定 service 如何被加到 CORD 的對應 model。
+model 是用 `xproto` modeling 語言撰寫的，並由 XOS tool-chain 處理。此外，tool-chain 還會產生 TOSCA-engine (用於處理維運 CORD 的 configuration 和 provisioning 的 workflow)。
+更多關於 `xproto` 可以參考[這邊](xos/dev/xproto.md)。
 
-* An initial install brings up a set of XOS-related containers (e.g., `xos-core`,
-  `xos-gui`, `xos-tosca`) that have been configured with a base set of models.
-  Of these, the `xos-tosca` container implements the TOSCA engine, which
-  takes TOSCA workflows as input and configures/provisions CORD accordingly.
+這些 tools 和 containers 是相互關聯的:
 
-* While the install and operate stages are distinct, for convenience,
-  some helm-charts elect to launch a `tosca-loader` container
-  (in Kubernetes parlance, it's a *job* and not a *service*) to load an initial
-  TOSCA workflow into a newly deployed set of services. This is how a
-  service graph is typically instantiated.
+* 初始安裝會帶出一組已經被被配置好的基本模型在 XOS-related containers (例如，xos-core、xos-gui、xos-tosca)中。 其中，xos-tosca container 實現了 TOSCA engine，而該 engine 將 TOSCA workflows 作為輸入與 configures/provisions CORD。
 
-* While the CORD control plane is deployed as a set of Docker
-  containers, not all of the services themselves run in containers.
-  Some services run in VMs managed by OpenStack (this is currently
-  the case for M-CORD) and some services are implemented as ONOS
-  applications that have been packaged using Maven. In such cases,
-  the VM image and the Maven package are still specified in the TOSCA
-  workflow.
+* 即便安裝和維運是不同的，為了方便起見，一些 helm-charts 選擇啟動 tosca-loader container (在 k8s 是 job， 在 CORD 是 service)來載入 initial TOSCA workflow 到新部署的 service set 中。
+這是通常是 service graph 的 instantiated.。
 
-* Every service (whether implemented in Docker, OpenStack, or ONOS)
-  has a counter-part *synchronizer* container running as part of the CORD
-  control plane (e.g., `volt-synchronizer` for the vOLT service). Typically,
-  the helm-chart for a service launches this synchronizer container, whereas
-  the TOSCA worflow creates, provisions, and initializes the backend container,
-  VM, or ONOS app.
+* 雖然使用 Docker containers 部署 CORD 的 control plane，但並不是所有的服務都是 container 。有些服務是在 OpenStack 的 VM 中(M-CORD 就是這樣)。
+還有些服務是用 Maven 包在 ONOS APP 中。在這種情況下，仍然在 TOSCA 的 workflow 中指定 VM  image 和 Maven package。
 
-* Bringing up additional services in a running POD involves executing
-  helm-charts to install the new service's synchronizer container, which
-  in turn loads the corresponding new models into XOS. This load then
-  triggers and upgrade and restart of the TOSCA engine (and other NBIs),
-  which is a pre-requisite for configuring and provisioning that new service.
+* 每個 service (無論是在 Docker、OpenStack、ONOS 中實現) 都有一個 counter-part *synchronizer* container 作為 CORD control plane 的一部分運行(例如，vOLT service 的`volt-synchronizer`)。 通常，service 的 helm-chart 會啟動這個 synchronizer container，此外，TOSCA worflow 會創建，配置和初始化 backend container, VM 或 ONOS APP。
 
-* Upgrading an existing service is similar to bringing up a new service,
-  where we depend on Kubernetes to incrermentally roll out the containers
-  that implement the service (and rollback if necessarily), and we depend
-  on XOS to migrate from the old model to the new model (and support
-  both old and new APIs during the transition period). Upgrading existing
-  services has not been thoroughly tested.
+* 在正在運行的 POD 中加入其他 service 涉及執行 helm-charts 以安裝新 service 的synchronizer container。synchronizer container 會將相應的新 models 載到 XOS 中。 這個 load 會 triggers, upgrade 和重新啟動 TOSCA engine （和其他NBI），TOSCA engine 是配置和配置新 service 的先決條件。
+
+* 依據 Kubernetes 的功能進行 現有的 service upgrade 或 rollback。我們依靠XOS從舊模型遷移到新模型 （並在過渡期間支持新舊API）。 升級現有服務尚未經過全面測試。
