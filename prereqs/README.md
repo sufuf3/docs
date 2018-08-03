@@ -1,12 +1,10 @@
-# Prerequisites
+# 先決條件
 
-The latest release of CORD decouples setting up the deployment environment from
-installing CORD. This means more prerequisites must be satisfied (as enumerated
-in this section), but doing so provides more latitude in how you prep a POD to best
-match your local environment.
+最新版本的 CORD 將安裝部署環境與安裝 CORD 分離開來。 這意味著必須滿足更多先決條件（如本節中所列舉的），但這樣做可以為您準備 POD 以最佳匹配本地環境提供更大的自由度。
 
-There are three categories of requirements that must be met before installing CORD:
+安裝 CORD 之前必須滿足三個需求：
 
-* [Hardware Requirements](hardware.md)
-* [Connectivity Requirements](networking.md)
-* [Software Requirements](software.md)
+
+* [硬體 Requirements](hardware.md)
+* [網路 Requirements](networking.md)
+* [軟體 Requirements](software.md)

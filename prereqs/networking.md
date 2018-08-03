@@ -1,6 +1,8 @@
 # Connectivity Requirements
 
-CORD expects two networks: a management network (for control traffic between the control plane containers) and a dataplane network (for end-user traffic).
+CORD 分兩個網路：
+- Management network: 是在 containers 之間的 control traffic 的 control plane。
+- Dataplane network: end-user traffic
 
 ## Management Network
 

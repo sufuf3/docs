@@ -1,14 +1,7 @@
 # Software Requirements
 
-CORD is distributed as a set of containers that can run on
-pretty much any Kubernetes environment. It is your choice how
-to install Kubernetes, although this section describes automation
-scripts we have found useful.
+CORD 現在都用 Kubernetes 拉！
 
-> **Note:** M-CORD is the exception since its components still depend on
-> OpenStack, which is in turn deployed as a set of Kubernetes containers
-> using the [openstack-helm](https://github.com/openstack/openstack-helm)
-> project. Successfully installing the OpenStack Helm charts requires
-> some additional system configuration besides just installing Kubernetes
-> and Helm. You can find more informations about this in the
-> [OpenStack Support](./openstack-helm.md) installation section.
+> M-CORD 例外，因為有些 components 仍然依賴 OpenStack ，然後 openstack 又用 [openstack-helm](https://github.com/openstack/openstack-helm) 來讓 Kubernetes 部署。
+要把 OpenStack Helm charts 安裝成功又有一些額外的系統配置，要知道更多有關 openstack 部分，請參見 [OpenStack Support](./openstack-helm.md)
+
