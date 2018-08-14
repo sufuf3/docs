@@ -1,13 +1,13 @@
 # Fabric Software Setup
 
-CORD uses the Trellis fabric to connect the data plane components together.
-This section describes how to setup the software for these switches.
+CORD 使用 Trellis fabric 來和 data plane components 互相溝通。
+這個 section 是描述如何為這些 switch  setup 。
 
-The latest [Trellis Fabric](https://wiki.opencord.org/display/CORD/Trellis%3A+CORD+Network+Infrastructure) documentation can be found on the CORD wiki.
+最新的 [Trellis Fabric](https://wiki.opencord.org/display/CORD/Trellis%3A+CORD+Network+Infrastructure) 文件可以在 CORD wiki 上查看。
 
 ## Supported Switches
 
-The list of supported hardware can be found in the [hardware requirements page](prereqs/hardware.md).
+可以支援的硬體請參考 [hardware requirements page](prereqs/hardware.md).
 
 ## Operating System
 
@@ -51,7 +51,8 @@ Three OFDPA drivers are available:
 
 ## Connect the Fabric Switches to ONOS
 
-If the switches are not already connected, ssh to each switch and configure */etc/ofagent/ofagent.conf* by uncommenting and editing the following line:
+將 Fabric Switches 連結到 ONOS
+如果 switches 還沒有連接，那就 ssh 到每台 switch 中在 */etc/ofagent/ofagent.conf* 設定，uncommenting 並編輯如下：
 
 ```shell
 OPT_ARGS="-d 2 -c 2 -c 4 -t K8S_NODE_IP:31653 -i $DPID"
