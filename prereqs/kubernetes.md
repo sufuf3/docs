@@ -1,13 +1,11 @@
 # Kubernetes
 
-CORD runs on any version of Kubernetes (1.10 or greater), and uses the
-Helm client-side tool. If you are new to Kubernetes, we recommend
-<https://kubernetes.io/docs/tutorials/> as a good place to start.
+CORD 運行的 k8s 版本事 v1.10 以上，並使用 Helm client-side tool。
+如果你是 k8s 新手，請閱讀 <https://kubernetes.io/docs/tutorials/>。
 
-Note: We are using a feature in kubernetes 1.10 to allow local persistence of data.
-This is a beta feature in K8S 1.10.x as of this writing and should be enabled by default.
-However, if it is not, you will need to enable it as a feature gate when
-launching kubernetes with the following feature gate settings:
+
+注意：我們使用 kubernetes 1.10 中的允許本地持久性的 data 功能。在撰寫本文時，這是 K8S 1.10.x 中的測試版功能，默認情況下應啟用。
+但是，如果不是，則在使用以下功能 gate 設置啟動 kubernetes 時，需要將其功能 gate 啟用：
 
 ```shell
 PersistentLocalVolumes=true
@@ -17,23 +15,18 @@ MountPropagation=true
 
 More information about feature gates can be found [here](https://github.com/kubernetes-incubator/external-storage/tree/local-volume-provisioner-v2.0.0/local-volume#enabling-the-alpha-feature-gates).
 
-Although you are free to set up Kubernetes and Helm in whatever way makes
-sense for your deployment, the following provides guidelines, pointers, and
-automated scripts that might be helpful.
+雖然您可以以任何對部署有意義的方式自由設置 Kubernetes 和 Helm ，不過以下提供了可能有用的指南，指針和自動腳本。
 
 ## Install Kubernetes
 
-The following sections, [Single Node Cluster](k8s-single-node.md) and [Multi Node Cluster](k8s-multi-node.md), offer pointers and scripts to install your favorite
+The following sections, [單個 node 的 Cluster](k8s-single-node.md) and [多個 Node 的 Cluster](k8s-multi-node.md), offer pointers and scripts to install your favorite
 version of Kubernetes. Start there, then come back here and follow the
 steps in the following three subsections.
 
 ## Export KUBECONFIG
 
-Once Kubernetes is installed, you should have a KUBECONFIG configuration file containing all the details of your deployment: address of the machine(s),
-credentials, and so on. The file can be used to access your Kubernetes deployment
-from any client able to communicate with the Kubernetes installation. To manage
-the pod, export a KUBECONFIG variable containing the path to the configuration
-file:
+安裝 Kubernetes 後，您應該有一個 KUBECONFIG 配置文件，其中包含部署的所有詳細信息：
+機器的地址，credentials 等。該文件可用於從能夠與 Kubernetes 安裝進行通信的任何客戶端訪問 Kubernetes 部署。要管理 pod ，請導出包含配置文件路徑的 KUBECONFIG 變量：
 
 ```shell
 export KUBECONFIG=/path/to/your/kubeconfig/file

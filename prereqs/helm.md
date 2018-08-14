@@ -2,22 +2,19 @@
 
 {% include "/partials/helm/description.md" %}
 
-The following assumes that *Kubernetes* has already been installed
-and *kubectl* can access the POD. CORD uses helm to deploy containers
-on Kubernetes, and as such, it should be installed before trying to
-deploy any CORD container.
+以下假設已經安裝了 *Kubernetes* 且 *kubectl* 可以問 POD 。 
+CORD使用 helm 在 Kubernetes 上部署 containers，因此，應該在嘗試部署任何 CORD container 之前安裝它。
 
-Helm documentation can be found at <https://docs.helm.sh/>. It consists
-of two components:
+Helm 文件可以在 <https://docs.helm.sh/> 找到，他有兩個 components:
 
-* `helm`: The helm client is basically a CLI utility.
-* `tiller`: The server side component, which executes client commands on the Kubernetes cluster.
+* `helm`: helm  client 是一個基本的 CLI utility。
+* `tiller`: 是 server side 的 component，是在 k8s 的 cluster 上執行 client commands。
 
-Helm can be installed on any device that is able to reach the
-Kubernetes POD (i.e. the developer laptop, another server in the
-network). Tiller should be installed on the Kubernetes cluster itself.
+Helm 可以安裝在任何能夠訪問 Kubernetes POD 的設備上（如開發者筆電，網路中的另一台 server）。
+Tiller 應該安裝在 Kubernetes 集群上。
 
-> **Note:** if you've installed Minikube you'll likely need to install *socat* as well before proceeding, otherwise errors will be thrown. For example, on Ubuntu do *sudo apt-get install socat*.
+> *注意*：如果你安裝了 Minikube ，你可能還需要在繼續之前安裝 `socat` 套件，否則會引發錯誤。
+例如，在 Ubuntu 上執行 `sudo apt-get install socat` 。
 
 ## Install Helm Client
 
