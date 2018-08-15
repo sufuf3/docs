@@ -1,28 +1,22 @@
 # R-CORD Profile
 
-The latest version of R-CORD differs from versions included in earlier
-releases in that it does not include the vSG service. In the code,
-this new configuration is called `rcord-lite`, but since it is the
-only version of Residential CORD currently supported, we simply
-call it the *R-CORD profile.*
+最新版本的 R-CORD 與早期版本中包含的版本不同，它不包括 vSG 服務。
+在程式碼中，這個新配置稱為 `rcord-lite` ，但由於它是目前支持的唯一版本的 Residential CORD ，我們簡稱為 *R-CORD profile*。
 
 ## Prerequisites
 
-- Kubernetes: Follow one of these guides to install either a [single
+- Kubernetes: 請遵循這兩個的其中一個安裝指南，a [single
    node](../../prereqs/k8s-single-node.md) or a [multi
    node](../../prereqs/k8s-multi-node.md) cluster.
-- Helm: Follow this [guide](../../prereqs/helm.md).
+- Helm: 請遵循著個 [guide](../../prereqs/helm.md).
 
 ## Install VOLTHA
 
-When running on a physical POD with OLT/ONU hardware, the
-first step to bringing up R-CORD is to install the
-[VOLTHA helm chart](../../charts/voltha.md).
+在執行包含 OLT/ONU 硬體的實體 POD，啟動 R-CORD 的第一步是需要先安裝 [VOLTHA helm chart](../../charts/voltha.md)。
 
 ## Install CORD Platform
 
-The R-CORD profile has dependencies on the following platform
-charts, so they need to be installed next:
+R-CORD profile 依賴於以下平台 charts ，因此需要安裝它們：
 
 - [xos-core](../../charts/xos-core.md)
 - [onos-fabric](../../charts/onos.md#onos-fabric)
@@ -30,26 +24,21 @@ charts, so they need to be installed next:
 
 ## Install R-CORD Profile
 
-You are now ready to install the R-CORD profile:
+安裝 R-CORD profile:
 
 ```shell 
 helm dep update xos-profiles/rcord-lite
 helm install -n rcord-lite xos-profiles/rcord-lite
 ```
 
-Optionally, if you want to use the "bottom up" subscriber provisioning
-workflow described in the [Operations Guide](configuration.md), you
-will also need to install the following two charts:
+（可選）如果要使用 [操作指南](configuration.md) 中描述的"bottom up"訂戶配置工作流(subscriber provisioning workflow)，則還需要安裝以下兩個 charts：
 
 - [cord-kafka](../../charts/kafka.md)
 - [hippie-oss](../../charts/hippie-oss.md)
 
-> **Note:** If you install both VOLTHA and the optional Kafka, you
-> will end up with two instantiations of Kafka: `kafka-voltha` and
-> `kafka-cord`.
+> **注意**：如果同時安裝 VOLTHA 和可選的 Kafka ，最終會有兩個Kafka instantiations：`kafka-voltha` 和 `kafka-cord`。
 
-Once your R-CORD deployment is complete, please read the
-following guide to understand how to configure it:
+完成 R-CORD 部署後，請閱讀以下指南以了解如何配置它：
 [Configure R-CORD](configuration.md)
 
 ## Customize an R-CORD Install

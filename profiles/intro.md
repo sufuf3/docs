@@ -1,12 +1,9 @@
 # Bringing Up CORD
 
-CORD is a general-purpose platform that is able to run one or more
-profiles, each of which includes some access technology (e.g., OLT,
-RAN) and some collection of services (called a service graph or
-service mesh).
+CORD 是一個通用的平台，可以運行一個或多個配置文件，每個配置文件包括一些 access 技術（例如: OLT, RAN）和一些服務集合（稱為 service graph 或 service mesh）。
 
-Although in principle arbitrarily many different profiles are
-possible, and profiles can be dynamically extended with new services
-at runtime, each release of CORD includes a collection of reference
-profiles. This section describes two.
+雖然原則上任意多個不同的配置文件是可能的，
+且配置文件可以在運行時使用新服務動態擴展，
+而每個 CORD 版本包括一組參考配置文件。
+本節介紹兩種。
 
